@@ -1,14 +1,7 @@
 .content {
-	background: white;
-	max-width: 600px;
-	text-align: center;
-	padding: $gutter * 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-	>:first-child {
-		margin-top: 0;
-	}
-
-	>:last-child {
-		margin-bottom: 0;
-	}
+	min-height: 100vh;
 }

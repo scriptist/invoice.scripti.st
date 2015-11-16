@@ -1,0 +1,39 @@
+{% extends "_layout.html.twig" %}
+{% block title %}Admin{% endblock %}
+{% block scripts %}
+	<script src="/bower_components/autosize/dist/autosize.min.js"></script>
+	<script>
+		autosize(document.getElementById('address'));
+	</script>
+{% endblock %}
+{% block content %}
+	<div class="row row--full-height">
+		<ul class="invoice-list">
+		</ul>
+		<form class="invoice-edit">
+			<div class="invoice-edit__field">
+				<label for="company">Company</label>
+				<input type="text" name="company" id="company">
+			</div>
+
+			<div class="invoice-edit__field">
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name">
+			</div>
+
+			<div class="invoice-edit__field">
+				<label for="address">Address</label>
+				<textarea name="address" id="address" rows="1"></textarea>
+			</div>
+
+			<div class="invoice-edit__field">
+				<label for="type">Type</label>
+				<select name="type" id="type">
+					<option value=""></option>
+					<option value="quote">Quote</option>
+					<option value="invoice">Invoice</option>
+				</select>
+			</div>
+		</form>
+	</div>
+{% endblock %}

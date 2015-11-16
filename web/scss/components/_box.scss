@@ -1,0 +1,15 @@
+.box {
+	background: white;
+	margin: $gutter;
+	max-width: 600px;
+	text-align: center;
+	padding: $gutter * 2;
+
+	>:first-child {
+		margin-top: 0;
+	}
+
+	>:last-child {
+		margin-bottom: 0;
+	}
+}

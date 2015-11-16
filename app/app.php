@@ -1,6 +1,10 @@
 <?php
 
 require 'app/vendor/autoload.php';
+require 'config.php';
+
+// Initialise database
+$database = new medoo($dbCredentials);
 
 // Start Slim
 $app = new \Slim\Slim(array(
