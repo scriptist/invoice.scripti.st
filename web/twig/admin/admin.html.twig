@@ -7,9 +7,6 @@
 	<script src="{{'/js/invoice.js' | bust_cache }}"></script>
 	<script src="{{'/js/invoice-admin.js' | bust_cache }}"></script>
 	<script>
-		// Autosize the address element
-		autosize(document.getElementById('address'));
-
 		// Invoice list
 		new InvoiceAdmin({{invoices | json_encode | raw}});
 	</script>
@@ -50,7 +47,7 @@
 
 			<div class="invoice-edit__field">
 				<label for="address">Address</label>
-				<textarea name="address" id="address" rows="1" v-model="selected.address"></textarea>
+				<textarea name="address" id="address" rows="1" v-model="selected.address" v-autosize></textarea>
 			</div>
 
 			<div class="invoice-edit__field">

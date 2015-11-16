@@ -15,7 +15,16 @@ class InvoiceAdmin {
 			var date = new Date(value);
 			let pad = number => number < 10 ? "0" + number : number;
 			return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
-		})
+		});
+
+		Vue.directive('autosize', {
+			bind: function () {
+				autosize(this.el);
+			},
+			unbind: function () {
+				autosize.destroy(this.el);
+			}
+		});
 
 		new Vue({
 			el: '#invoice-admin',
