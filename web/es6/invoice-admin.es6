@@ -9,7 +9,7 @@ class InvoiceAdmin {
 		invoicesObj.forEach(function(invoiceObj) {
 			var invoice = new Invoice(invoiceObj);
 			this.data.invoices.push(invoice);
-		});
+		}.bind(this));
 
 
 		new Vue({

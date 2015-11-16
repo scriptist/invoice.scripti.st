@@ -1,6 +1,8 @@
 {
   "name": "invoice.scripti.st",
   "dependencies": {
-    "vue": "~1.0.8"
+    "vue": "~1.0.8",
+    "autosize": "~3.0.14",
+    "nanoajax": "~0.3.1"
   }
 }
