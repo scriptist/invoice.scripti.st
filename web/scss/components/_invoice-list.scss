@@ -18,8 +18,12 @@
 
 		transition: background-color $transition-short;
 
-		&:hover {
+		&:not(.invoice-list__item--selected):hover {
 			background-color:lighten(#3f5765, 35%);
+
+			.invoice-list__item__type {
+				color: #777;
+			}
 		}
 
 		&:focus {
@@ -49,7 +53,15 @@
 
 		.invoice-list__item__name {
 			color: #333;
+			display: inline;
 			font-size: 1.125em;
+		}
+
+		.invoice-list__item__type {
+			color: #aaa;
+			float: right;
+			font-size: 0.875em;
+			text-transform: uppercase;
 		}
 
 		.invoice-list__item__date {
