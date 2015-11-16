@@ -1,0 +1,75 @@
+.invoice {
+	background: white;
+	min-height: 90vh;
+	padding: $paper-margin;
+	width: 18cm;
+
+	.invoice__from {
+		>:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.invoice__to {
+		margin-top: 1.5em;
+	}
+
+	.invoice__right {
+		text-align: right;
+	}
+
+	.invoice__type {
+		color: $color-primary;
+		font-size: 3em;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.invoice__lines {
+		border-spacing: 0;
+		margin-top: 1em;
+		width: 100%;
+
+		thead {
+			-webkit-print-color-adjust: exact;
+			background: $color-primary;
+			color: white;
+		}
+
+		th {
+			text-align: left;
+			padding: 0.4em 0.6em;
+		}
+
+		td {
+			padding: 0.4em 0.6em;
+		}
+
+		.invoice__lines__number, {
+			text-align: right;
+		}
+
+		.invoice__lines__grand-total {
+			font-weight: bold;
+			text-align: right;
+
+			td {
+				border-top: 1px solid #bbb;
+			}
+		}
+	}
+
+	.invoice__footer {
+		font-size: 0.875em;
+		margin: 8em auto 0;
+		max-width: 66%;
+		text-align: center;
+	}
+
+	a {
+		@media print {
+			color: inherit;
+			text-decoration: inherit;
+		}
+	}
+}

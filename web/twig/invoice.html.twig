@@ -1,19 +1,25 @@
 {% extends "_layout.html.twig" %}
-{% block title %}Invoice{% endblock %}
+{% block title %}{{billing.name}}{% endblock %}
 {% block content %}
 	{% if invoice %}
 		<div class="invoice">
 			<div class="row">
 				<div class="invoice__left">
-					<h1>{{billing.name}}</h1>
-					<p>{{billing.address | nl2br}}</p>
+					<div class="invoice__from">
+						<h1>{{billing.name}}</h1>
+						<p>{{billing.address | nl2br}}</p>
+					</div>
 
-					<h2>Bill to</h2>
-					<p>
-						{{invoice.name}}<br>
-						{{invoice.company}}<br>
-						{{invoice.address | nl2br}}
-					</p>
+					{% if invoice.type == 'invoice' %}
+						<div class="invoice__to">
+							<h2>Bill to</h2>
+							<p>
+								{% if invoice.name %}{{invoice.name}}<br>{% endif %}
+								{% if invoice.company %}{{invoice.company}}<br>{% endif %}
+								{{invoice.address | nl2br}}
+							</p>
+						</div>
+					{% endif %}
 				</div>
 				<div class="invoice__right">
 					<div class="invoice__type">{{invoice.type}}</div>
@@ -24,9 +30,9 @@
 				<thead>
 					<tr>
 						<th>Description</th>
-						<th>Charge</th>
-						<th>Quantity</th>
-						<th>Total</th>
+						<th class="invoice__lines__number">Charge</th>
+						<th class="invoice__lines__number">Quantity</th>
+						<th class="invoice__lines__number">Total</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,26 +42,28 @@
 						{% set grandTotal = grandTotal + total %}
 						<tr>
 							<td>{{line.description}}</td>
-							<td>${{line.charge | number_format(2)}}</td>
-							<td>{{line.quantity}}{% if line.is_hours %} hours{% endif %}</td>
-							<td>${{total | number_format(2)}}</td>
+							<td class="invoice__lines__number">${{line.charge | number_format(2)}}</td>
+							<td class="invoice__lines__number">{{line.quantity}}{% if line.is_hours %} hours{% endif %}</td>
+							<td class="invoice__lines__number">${{total | number_format(2)}}</td>
 						</tr>
 					{% endfor %}
 
-					<tr>
+					<tr class="invoice__lines__grand-total">
 						<td colspan="3">GRAND TOTAL</td>
-						<td>${{grandTotal | number_format(2)}}</td>
+						<td class="invoice__lines__number">${{grandTotal | number_format(2)}}</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<div class="invoice__payment">
-				<h2>Payment details</h2>
-				<p>{{billing.payment | nl2br}}</p>
-			</div>
+			{% if invoice.type == 'invoice' %}
+				<div class="invoice__payment">
+					<h2>Payment details</h2>
+					<p>{{billing.payment | nl2br}}</p>
+				</div>
+			{% endif %}
 
 			<footer class="invoice__footer">
-				If you have any questions about this invoice please contact {{billing.name}} at <a href="mailto:{{billing.email}}">{{billing.email}}</a>
+				If you have any questions about this {{invoice.type}} please contact {{billing.name}} at <a href="mailto:{{billing.email}}">{{billing.email}}</a>
 			</footer>
 		</div>
 	{% else %}
