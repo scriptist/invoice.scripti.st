@@ -11,6 +11,11 @@ class InvoiceAdmin {
 			this.data.invoices.push(invoice);
 		}.bind(this));
 
+		Vue.filter('date', function (value) {
+			var date = new Date(value);
+			let pad = number => number < 10 ? "0" + number : number;
+			return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+		})
 
 		new Vue({
 			el: '#invoice-admin',

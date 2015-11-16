@@ -41,4 +41,35 @@ $app->post('/api/invoices','APIrequest', function() use($app){
 	}
 });
 
+// Update
+$app->put('/api/invoices/:id','APIrequest', function($id) use($app){
+	$body = json_decode($app->request->getBody());
+	$fields = ['company', 'name', 'address', 'type'];
+	$attempts = 0;
+	$invoice = [];
+
+	foreach ($fields as $field) {
+		$invoice[$field] = $body->$field;
+	}
+
+	// Connect
+	global $dbCredentials;
+	$database = new medoo($dbCredentials);
+
+	$database->update('invoice', $invoice, ['id'=>$id]);
+
+	$error = $database->error();
+
+	if ($error[1]) {
+		$app->render(500, [
+			'error' => true,
+			'message' => $error[2]
+		]);
+	} else {
+		$app->render(200, [
+			'invoice' => $invoice
+		]);
+	}
+});
+
 ?>

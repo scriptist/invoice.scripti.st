@@ -1,12 +1,14 @@
 class Invoice {
 	constructor(data = {}) {
-		this.id            = data.id      || null;
+		this.id            = data.id       || null;
+		this.modified      = data.modified || new Date();
+
 
 		this._data         = {};
-		this._data.company = data.company || '';
-		this._data.name    = data.name    || '';
-		this._data.address = data.address || '';
-		this._data.type    = data.type    || '';
+		this._data.company = data.company  || '';
+		this._data.name    = data.name     || '';
+		this._data.address = data.address  || '';
+		this._data.type    = data.type     || '';
 
 		this.unsaved       = false;
 	}
@@ -21,15 +23,27 @@ class Invoice {
 
 	save() {
 		if (this.id) {
-
+			// Update
+			nanoajax.ajax({
+				url: '/api/invoices/' + this.id,
+				method: 'PUT',
+				body: this.toJSON()
+			}, function (code, responseText, request) {
+				var response = JSON.parse(responseText);
+			    if (response.error) {
+			    	alert(response.message);
+			    } else {
+					this.unsaved = false;
+			    }
+			}.bind(this));
 		} else {
+			// Create
 			nanoajax.ajax({
 				url: '/api/invoices',
 				method: 'POST',
 				body: this.toJSON()
 			}, function (code, responseText, request) {
 				var response = JSON.parse(responseText);
-				console.log(response);
 			    if (response.error) {
 			    	alert(response.message);
 			    } else {

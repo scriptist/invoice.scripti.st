@@ -26,12 +26,12 @@
 				</button>
 			</li>
 			<li v-for="invoice in invoices">
-				<button class="invoice-list__item" @click="select(invoice)">
+				<button class="invoice-list__item" :class="{'invoice-list__item--selected': invoice === selected}" @click="select(invoice)">
 					<div class="invoice-list__item__name">
-						{{ invoice.company }}{{invoice.id}}
+						{{ invoice.company }}
 					</div>
 					<div class="invoice-list__item__date">
-						{{ invoice.modified }}
+						{{ invoice.modified | date }}
 					</div>
 					<div class="invoice-list__item__unsaved" v-if="invoice.unsaved">*</div>
 				</button>
@@ -62,7 +62,7 @@
 				</select>
 			</div>
 
-			<button class="button">Save</button>
+			<button class="button" :disabled="!selected.unsaved">Save</button>
 		</form>
 	</div>
 	{% endverbatim %}
