@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var autoprefixer = require('gulp-autoprefixer');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
-var reload = browserSync.reload;
 
 gulp.task('scss', ['cleancss'], function() {
 	return gulp
@@ -15,9 +14,7 @@ gulp.task('scss', ['cleancss'], function() {
 		.pipe(autoprefixer())
 		.pipe($.sourcemaps.write())
 		.pipe(gulp.dest('css'))
-		.pipe(reload({
-			stream: true
-		}));
+		.pipe(browserSync.stream({once: true}));
 });
 
 gulp.task('es6', ['cleanjs'], function() {
@@ -29,7 +26,7 @@ gulp.task('es6', ['cleanjs'], function() {
         }))
 		.pipe($.sourcemaps.write())
 		.pipe(gulp.dest('js'))
-		.on('end', reload);
+		.pipe(browserSync.stream({once: true}));
 });
 
 gulp.task('buildcss', ['scss'], function() {
@@ -65,7 +62,7 @@ gulp.task('watch', ['scss', 'es6'], function() {
 		proxy: 'localhost.invoice.scripti.st'
 	});
 
-	gulp.watch(['twig/**/*.html.twig']).on('change', reload);
+	gulp.watch('twig/**/*.html.twig').on('change', browserSync.reload);
 	gulp.watch('scss/**/*.scss', ['scss']);
 	gulp.watch('es6/**/*.es6', ['es6']);
 });
