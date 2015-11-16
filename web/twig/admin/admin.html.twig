@@ -80,7 +80,7 @@
 							<td><input type="text" v-model="line.description"></td>
 							<td><input type="text" v-model="line.charge | currency"></td>
 							<td><input type="number" v-model="line.quantity"></td>
-							<td><input type="checkbox" v-model="line.hours"></td>
+							<td><input type="checkbox" v-model="line.is_hours"></td>
 							<td>{{line.total | currency}}</td>
 							<td><button class="button button--compact button--expand" @click="line.save.call(line)" :disabled="!line.unsaved">Save</button></td>
 						</tr>

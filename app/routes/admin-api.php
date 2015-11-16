@@ -6,8 +6,8 @@ function APIrequest(){
 	$app->add(new \JsonApiMiddleware());
 }
 
-// Create
-$app->post('/api/invoices','APIrequest', function() use($app){
+// Create Invoice
+$app->post('/api/invoices','APIrequest', function() use($app) {
 	$body = json_decode($app->request->getBody());
 	$fields = ['company', 'name', 'address', 'type'];
 	$attempts = 0;
@@ -24,7 +24,7 @@ $app->post('/api/invoices','APIrequest', function() use($app){
 	// Insert
 	while ($attempts++ === 0 || ($database->error()[1] === 1062 && ($attempts < 5))) {
 		$invoice['id'] = mt_rand(100000, 999999);
-		$o = $database->insert('invoice', $invoice);
+		$database->insert('invoice', $invoice);
 	}
 
 	$error = $database->error();
@@ -41,8 +41,8 @@ $app->post('/api/invoices','APIrequest', function() use($app){
 	}
 });
 
-// Update
-$app->put('/api/invoices/:id','APIrequest', function($id) use($app){
+// Update Invoice
+$app->put('/api/invoices/:id','APIrequest', function($id) use($app) {
 	$body = json_decode($app->request->getBody());
 	$fields = ['company', 'name', 'address', 'type'];
 	$attempts = 0;
@@ -68,6 +68,72 @@ $app->put('/api/invoices/:id','APIrequest', function($id) use($app){
 	} else {
 		$app->render(200, [
 			'invoice' => $invoice
+		]);
+	}
+});
+
+// Create Invoice Line
+$app->post('/api/invoices/:invoice_id/lines','APIrequest', function($invoice_id) use($app) {
+	$body = json_decode($app->request->getBody());
+	$fields = ['description', 'charge', 'quantity', 'is_hours'];
+	$line = [
+		'invoice_id'=> $invoice_id
+	];
+
+	foreach ($fields as $field) {
+		$line[$field] = $body->$field;
+	}
+
+	// Connect
+	global $dbCredentials;
+	$database = new medoo($dbCredentials);
+
+	// Insert
+	$database->insert('line', $line);
+
+	$error = $database->error();
+
+	if ($error[1]) {
+		$app->render(500, [
+			'error' => true,
+			'message' => $error[2]
+		]);
+	} else {
+		$app->render(200, [
+			'line' => $line
+		]);
+	}
+});
+
+// Update Invoice Line
+$app->put('/api/invoices/:invoice_id/lines/:line_id','APIrequest', function($invoice_id, $line_id) use($app) {
+	$body = json_decode($app->request->getBody());
+	$fields = ['description', 'charge', 'quantity', 'is_hours'];
+	$line = [
+		'invoice_id'=> $invoice_id
+	];
+
+	foreach ($fields as $field) {
+		$line[$field] = $body->$field;
+	}
+
+	// Connect
+	global $dbCredentials;
+	$database = new medoo($dbCredentials);
+
+	// Insert
+	$database->update('line', $line, ['id'=>$line_id]);
+
+	$error = $database->error();
+
+	if ($error[1]) {
+		$app->render(500, [
+			'error' => true,
+			'message' => $error[2]
+		]);
+	} else {
+		$app->render(200, [
+			'line' => $line
 		]);
 	}
 });

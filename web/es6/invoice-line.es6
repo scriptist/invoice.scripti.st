@@ -1,17 +1,18 @@
 class InvoiceLine {
 	constructor(invoiceId, data = {}) {
-		this.invoiceId         = invoiceId;
-		this.id                = data.id       || null;
-		this.modified          = data.modified || new Date();
+		this._data       = {};
+		this.invoiceId   = invoiceId;
+		this.id          = data.id       || null;
+		this.modified    = data.modified || new Date();
 
+		this.description = data.description  || '';
+		this.charge      = data.charge       || 0;
+		this.quantity    = data.quantity     || 0;
+		this.is_hours    = data.is_hours     || true;
 
-		this._data             = {};
-		this._data.description = data.description  || '';
-		this._data.charge      = data.charge       || 0;
-		this._data.quantity    = data.quantity     || 0;
-		this._data.isHours     = data.isHours      || true;
+		console.log(data);
 
-		this.unsaved           = false;
+		this.unsaved     = false;
 	}
 
 	toObject() {
@@ -97,16 +98,21 @@ class InvoiceLine {
 		return this._data.quantity;
 	}
 
-	set isHours(v) {
-		if (v === this._data.isHours)
+	set is_hours(v) {
+		// Cast to boolean
+		if (typeof v !== 'boolean') {
+			v = v != 0;
+		}
+
+		if (v === this._data.is_hours)
 			return;
 
 		this.unsaved = true;
-		this._data.isHours = v;
+		this._data.is_hours = v;
 	}
 
-	get isHours() {
-		return this._data.isHours;
+	get is_hours() {
+		return this._data.is_hours;
 	}
 
 	get total() {

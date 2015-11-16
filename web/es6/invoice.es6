@@ -1,22 +1,22 @@
 class Invoice {
 	constructor(data = {}) {
-		this.id            = data.id       || null;
-		this.modified      = data.modified || new Date();
+		this._data    = {};
+		this.id       = data.id       || null;
+		this.modified = data.modified || new Date();
 
-		this._data         = {};
-		this._data.company = data.company  || '';
-		this._data.name    = data.name     || '';
-		this._data.address = data.address  || '';
-		this._data.type    = data.type     || '';
+		this.company  = data.company  || '';
+		this.name     = data.name     || '';
+		this.address  = data.address  || '';
+		this.type     = data.type     || '';
 
-		this.lines         = [];
-		if (this._data.lines) {
-			this._data.lines.forEach(function(lineObj) {
+		this.lines    = [];
+		if (data.lines) {
+			data.lines.forEach(function(lineObj) {
 				this.lines.push(new InvoiceLine(this.id, lineObj));
-			});
+			}.bind(this));
 		}
 
-		this.unsaved       = false;
+		this.unsaved  = false;
 	}
 
 	newLine() {
