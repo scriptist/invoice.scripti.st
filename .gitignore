@@ -2,3 +2,4 @@ web/node_modules/
 app/vendor/
 web/js/
 web/css/
+app/cache/
