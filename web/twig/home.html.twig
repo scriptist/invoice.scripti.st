@@ -1,5 +1,21 @@
 {% extends "_layout.html.twig" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-	Hello World
+	<form class="id-form">
+		<h1>Enter invoice / quote ID:</h1>
+		<div class="row">
+			<input type="number" name="id" class="id-form__input" placeholder="123456789" required>
+			<button class="button id-form__button">Go</button>
+		</div>
+	</form>
+	<script>
+		document.querySelector('.id-form').addEventListener('submit', function(e) {
+			e.preventDefault();
+			var id = this.getElementsByTagName('input')[0].value;
+			if (id)
+				location.href = '/invoice/' + id;
+			else
+				alert('An error has occurred');
+		});
+	</script>
 {% endblock %}

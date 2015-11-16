@@ -1,3 +1,21 @@
+@import "settings";
+@import "typography";
+@import "components";
+
 *, *::before, *::after {
 	box-sizing: border-box;
+}
+
+:root {
+	background: #eee;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	padding: $gutter;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

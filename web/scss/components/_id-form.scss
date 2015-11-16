@@ -1,0 +1,21 @@
+.id-form {
+	h1 {
+		margin-top: 0;
+	}
+
+	.id-form__input, .id-form__button {
+		font-size: 1.25em;
+	}
+
+	.id-form__input {
+		border: 1px solid #ddd;
+		border-right: none;
+		padding: 0.5em 0.75em;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+}

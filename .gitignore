@@ -3,3 +3,4 @@ app/vendor/
 web/js/
 web/css/
 app/cache/
+web/bower_components/
