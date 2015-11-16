@@ -16,12 +16,13 @@
 			border-bottom: 1px solid #888;
 			font-size: 1.5em;
 			font-weight: 100;
+			resize: none;
 			width: 100%;
 
 			transition: box-shadow $transition-short;
 
 			&:focus {
-				box-shadow: 0 2px black;
+				box-shadow: 0 2px 0 -1px black;
 				outline: none;
 			}
 		}

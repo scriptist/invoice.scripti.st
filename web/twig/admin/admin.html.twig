@@ -2,38 +2,67 @@
 {% block title %}Admin{% endblock %}
 {% block scripts %}
 	<script src="/bower_components/autosize/dist/autosize.min.js"></script>
+	<script src="/bower_components/vue/dist/vue.min.js"></script>
+	<script src="{{'/js/invoice.js' | bust_cache }}"></script>
+	<script src="{{'/js/invoice-admin.js' | bust_cache }}"></script>
 	<script>
+		// Autosize the address element
 		autosize(document.getElementById('address'));
+
+		// Invoice list
+		new InvoiceAdmin({{invoices | json_encode}});
 	</script>
 {% endblock %}
 {% block content %}
-	<div class="row row--full-height">
+	{% verbatim %}
+	<div class="row row--full-height" id="invoice-admin">
 		<ul class="invoice-list">
+			<li>
+				<button class="invoice-list__item invoice-list__item--new" @click="newInvoice">
+					<div class="invoice-list__item__name">
+						Create new invoice
+					</div>
+				</button>
+			</li>
+			<li v-for="invoice in invoices">
+				<button class="invoice-list__item" @click="select(invoice)">
+					<div class="invoice-list__item__name">
+						{{ invoice.company }}
+					</div>
+					<div class="invoice-list__item__date">
+						{{ invoice.modified }}
+					</div>
+					<div class="invoice-list__item__unsaved" v-if="invoice.unsaved">*</div>
+				</button>
+			</li>
 		</ul>
-		<form class="invoice-edit">
+		<form class="invoice-edit" v-if="selected" @submit.prevent="selected.save.call(selected)">
 			<div class="invoice-edit__field">
 				<label for="company">Company</label>
-				<input type="text" name="company" id="company">
+				<input type="text" name="company" id="company" v-model="selected.company">
 			</div>
 
 			<div class="invoice-edit__field">
 				<label for="name">Name</label>
-				<input type="text" name="name" id="name">
+				<input type="text" name="name" id="name" v-model="selected.name">
 			</div>
 
 			<div class="invoice-edit__field">
 				<label for="address">Address</label>
-				<textarea name="address" id="address" rows="1"></textarea>
+				<textarea name="address" id="address" rows="1" v-model="selected.address"></textarea>
 			</div>
 
 			<div class="invoice-edit__field">
 				<label for="type">Type</label>
-				<select name="type" id="type">
+				<select name="type" id="type" v-model="selected.type">
 					<option value=""></option>
 					<option value="quote">Quote</option>
 					<option value="invoice">Invoice</option>
 				</select>
 			</div>
+
+			<button class="button">Save</button>
 		</form>
 	</div>
+	{% endverbatim %}
 {% endblock %}
