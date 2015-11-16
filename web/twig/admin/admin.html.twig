@@ -93,6 +93,7 @@
 
 			<button class="button" :disabled="!selected.unsaved">Save</button>
 			<button type="button" class="button" @click="deleteInvoice(selected)" :disabled="!selected.id">Delete</button>
+			<a href="/invoice/{{selected.id}}" target="_blank" style="margin-left:0.5em;">View</a>
 		</form>
 	</div>
 	{% endverbatim %}

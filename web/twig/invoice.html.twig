@@ -1,0 +1,68 @@
+{% extends "_layout.html.twig" %}
+{% block title %}Invoice{% endblock %}
+{% block content %}
+	{% if invoice %}
+		<div class="invoice">
+			<div class="row">
+				<div class="invoice__left">
+					<h1>{{billing.name}}</h1>
+					<p>{{billing.address | nl2br}}</p>
+
+					<h2>Bill to</h2>
+					<p>
+						{{invoice.name}}<br>
+						{{invoice.company}}<br>
+						{{invoice.address | nl2br}}
+					</p>
+				</div>
+				<div class="invoice__right">
+					<div class="invoice__type">{{invoice.type}}</div>
+					<div class="invoice__date">{{invoice.modified | date('Y-m-d')}}</div>
+				</div>
+			</div>
+			<table class="invoice__lines">
+				<thead>
+					<tr>
+						<th>Description</th>
+						<th>Charge</th>
+						<th>Quantity</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% set grandTotal = 0 %}
+					{% for line in invoice.lines %}
+						{% set total = line.charge * line.quantity %}
+						{% set grandTotal = grandTotal + total %}
+						<tr>
+							<td>{{line.description}}</td>
+							<td>${{line.charge | number_format(2)}}</td>
+							<td>{{line.quantity}}{% if line.is_hours %} hours{% endif %}</td>
+							<td>${{total | number_format(2)}}</td>
+						</tr>
+					{% endfor %}
+
+					<tr>
+						<td colspan="3">GRAND TOTAL</td>
+						<td>${{grandTotal | number_format(2)}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="invoice__payment">
+				<h2>Payment details</h2>
+				<p>{{billing.payment | nl2br}}</p>
+			</div>
+
+			<footer class="invoice__footer">
+				If you have any questions about this invoice please contact {{billing.name}} at <a href="mailto:{{billing.email}}">{{billing.email}}</a>
+			</footer>
+		</div>
+	{% else %}
+		<div class="box">
+			<h1>Not Found</h1>
+			<p>There is no invoice with that ID. Please try again.</p>
+			<a href="/" class="button">Back</a>
+		</div>
+	{% endif %}
+{% endblock %}
