@@ -1,6 +1,6 @@
 <?php
 
-function APIrequest(){
+function APIrequest() {
 	$app = \Slim\Slim::getInstance();
 	$app->view(new \JsonApiView());
 	$app->add(new \JsonApiMiddleware());

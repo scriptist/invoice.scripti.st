@@ -5,6 +5,7 @@
         "twig/twig": "^1.21",
         "cocur/slugify": "^1.4",
         "catfan/Medoo": "^1.0",
-        "entomb/slim-json-api": "^1.1"
+        "entomb/slim-json-api": "^1.1",
+        "tuupola/slim-basic-auth": "^1.0"
     }
 }

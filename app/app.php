@@ -42,6 +42,13 @@ $app->hook('slim.before.dispatch', function() use ($app) {
 	));
 });
 
+// Password protect
+$app->add(new \Slim\Middleware\HttpBasicAuthentication([
+	"path" => ["/admin", "/api"],
+	"secure" => false,
+	"users" => $users
+]));
+
 // Include routes
 foreach (glob("app/routes/*.php") as $filename) {
 	include $filename;
