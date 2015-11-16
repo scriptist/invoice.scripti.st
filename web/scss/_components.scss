@@ -1,3 +1,6 @@
+// Row first, so other components can override it
+@import "components/row";
+
 @import "components/box";
 @import "components/button";
 @import "components/content";
@@ -5,4 +8,3 @@
 @import "components/invoice";
 @import "components/invoice-edit";
 @import "components/invoice-list";
-@import "components/row";

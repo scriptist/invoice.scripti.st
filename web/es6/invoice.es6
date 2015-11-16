@@ -136,4 +136,12 @@ class Invoice {
 	get type() {
 		return this._data.type;
 	}
+
+	get total() {
+		var total = 0;
+		this.lines.forEach(function(line) {
+			total += line.total;
+		});
+		return total;
+	}
 }
