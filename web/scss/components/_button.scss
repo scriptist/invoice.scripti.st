@@ -17,4 +17,13 @@
 		background-color: #aaa;
 		cursor: not-allowed;
 	}
+
+	&.button--compact {
+		min-width: 1.6em;
+		padding: 0.2em 0.4em;
+	}
+
+	&.button--expand {
+		width: 100%;
+	}
 }

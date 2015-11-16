@@ -5,6 +5,7 @@
 	<script src="/bower_components/nanoajax/nanoajax.min.js"></script>
 	<script src="/bower_components/vue/dist/vue.min.js"></script>
 	<script src="{{'/js/invoice.js' | bust_cache }}"></script>
+	<script src="{{'/js/invoice-line.js' | bust_cache }}"></script>
 	<script src="{{'/js/invoice-admin.js' | bust_cache }}"></script>
 	<script>
 		// Invoice list
@@ -61,6 +62,34 @@
 					<option value="invoice">Invoice</option>
 				</select>
 			</div>
+
+			<div class="invoice-edit__table">
+				<table>
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Charge</th>
+							<th>Quantity</th>
+							<th>Hours</th>
+							<th>Total</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="line in selected.lines">
+							<td><input type="text" v-model="line.description"></td>
+							<td><input type="text" v-model="line.charge | currency"></td>
+							<td><input type="number" v-model="line.quantity"></td>
+							<td><input type="checkbox" v-model="line.hours"></td>
+							<td>{{line.total | currency}}</td>
+							<td><button class="button button--compact button--expand" @click="line.save.call(line)" :disabled="!line.unsaved">Save</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="invoice-edit__table__add button button--compact" @click="selected.newLine.call(selected)">+</button>
+			</div>
+
+
 
 			<button class="button" :disabled="!selected.unsaved">Save</button>
 		</form>

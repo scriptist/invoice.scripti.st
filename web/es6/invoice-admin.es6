@@ -11,6 +11,8 @@ class InvoiceAdmin {
 			this.data.invoices.push(invoice);
 		}.bind(this));
 
+		this.data.selected = this.data.invoices[0];
+
 		Vue.filter('date', function (value) {
 			var date = new Date(value);
 			let pad = number => number < 10 ? "0" + number : number;

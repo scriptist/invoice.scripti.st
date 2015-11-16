@@ -29,4 +29,41 @@
 			}
 		}
 	}
+
+	.invoice-edit__table {
+		@include clearfix;
+
+		.invoice-edit__table__add {
+			float: right;
+		}
+
+		table {
+			border-spacing: 0;
+			margin-bottom: 1em;
+			width: 100%;
+		}
+
+		th {
+			font-size: 0.875em;
+			font-weight: inherit;
+			text-align: left;
+		}
+
+		td:nth-child(2),
+		td:nth-child(3) {
+			width: 80px;
+		}
+
+		input[type=text],
+		input[type=number] {
+			background: white;
+			border: 1px solid #ccc;
+			padding: 0.2em 0.4em;
+			width: 100%;
+
+			&:focus {
+				outline: none;
+			}
+		}
+	}
 }

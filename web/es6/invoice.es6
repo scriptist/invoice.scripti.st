@@ -3,14 +3,24 @@ class Invoice {
 		this.id            = data.id       || null;
 		this.modified      = data.modified || new Date();
 
-
 		this._data         = {};
 		this._data.company = data.company  || '';
 		this._data.name    = data.name     || '';
 		this._data.address = data.address  || '';
 		this._data.type    = data.type     || '';
 
+		this.lines         = [];
+		if (this._data.lines) {
+			this._data.lines.forEach(function(lineObj) {
+				this.lines.push(new InvoiceLine(this.id, lineObj));
+			});
+		}
+
 		this.unsaved       = false;
+	}
+
+	newLine() {
+		this.lines.push(new InvoiceLine(this.id));
 	}
 
 	toObject() {
