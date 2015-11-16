@@ -67,8 +67,7 @@ class Invoice {
 	delete() {
 		nanoajax.ajax({
 			url: '/api/invoices/' + this.id,
-			method: 'DELETE',
-			body: this.toJSON()
+			method: 'DELETE'
 		}, function (code, responseText, request) {
 			var response = JSON.parse(responseText);
 		    if (response.error) {

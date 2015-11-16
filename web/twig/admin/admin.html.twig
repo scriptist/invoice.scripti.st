@@ -83,8 +83,8 @@
 							<td><input type="number" v-model="line.quantity"></td>
 							<td><input type="checkbox" v-model="line.is_hours"></td>
 							<td>{{line.total | currency}}</td>
-							<td><button class="button button--compact button--expand" @click="line.save.call(line)" :disabled="!line.unsaved">Save</button></td>
-							<td><button class="button button--compact button--expand" @click="selected.deleteLine.call(selected, line)" :disabled="!line.id">Delete</button></td>
+							<td><button type="button" class="button button--compact button--expand" @click="line.save.call(line)" :disabled="!line.unsaved">Save</button></td>
+							<td><button type="button" class="button button--compact button--expand" @click="selected.deleteLine.call(selected, line)" :disabled="!line.id">Delete</button></td>
 						</tr>
 					</tbody>
 				</table>

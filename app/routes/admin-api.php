@@ -89,7 +89,7 @@ $app->post('/api/invoices/:invoice_id/lines','APIrequest', function($invoice_id)
 	$database = new medoo($dbCredentials);
 
 	// Insert
-	$database->insert('line', $line);
+	$line['id'] = $database->insert('line', $line);
 
 	$error = $database->error();
 
@@ -109,9 +109,7 @@ $app->post('/api/invoices/:invoice_id/lines','APIrequest', function($invoice_id)
 $app->put('/api/invoices/:invoice_id/lines/:line_id','APIrequest', function($invoice_id, $line_id) use($app) {
 	$body = json_decode($app->request->getBody());
 	$fields = ['description', 'charge', 'quantity', 'is_hours'];
-	$line = [
-		'invoice_id'=> $invoice_id
-	];
+	$line = [];
 
 	foreach ($fields as $field) {
 		$line[$field] = $body->$field;
@@ -122,7 +120,7 @@ $app->put('/api/invoices/:invoice_id/lines/:line_id','APIrequest', function($inv
 	$database = new medoo($dbCredentials);
 
 	// Insert
-	$database->update('line', $line, ['id'=>$line_id]);
+	$database->update('line', $line, ['AND'=>['id'=>$line_id, 'invoice_id'=>$invoice_id]]);
 
 	$error = $database->error();
 
@@ -134,6 +132,54 @@ $app->put('/api/invoices/:invoice_id/lines/:line_id','APIrequest', function($inv
 	} else {
 		$app->render(200, [
 			'line' => $line
+		]);
+	}
+});
+
+// Delete Invoice
+$app->delete('/api/invoices/:id','APIrequest', function($id) use($app) {
+	// Connect
+	global $dbCredentials;
+	$database = new medoo($dbCredentials);
+
+	// Insert
+	$database->delete('invoice', ['id'=>$id]);
+
+	$error = $database->error();
+
+	if ($error[1]) {
+		$app->render(500, [
+			'error' => true,
+			'message' => $error[2],
+			'query' => $database->last_query()
+		]);
+	} else {
+		$app->render(200, [
+			'message' => 'deleted'
+		]);
+	}
+});
+
+// Delete Invoice Line
+$app->delete('/api/invoices/:invoice_id/lines/:line_id','APIrequest', function($invoice_id, $line_id) use($app) {
+	// Connect
+	global $dbCredentials;
+	$database = new medoo($dbCredentials);
+
+	// Insert
+	$database->delete('line', ['AND'=>['id'=>$line_id, 'invoice_id'=>$invoice_id]]);
+
+	$error = $database->error();
+
+	if ($error[1]) {
+		$app->render(500, [
+			'error' => true,
+			'message' => $error[2],
+			'query' => $database->last_query()
+		]);
+	} else {
+		$app->render(200, [
+			'message' => 'deleted'
 		]);
 	}
 });
