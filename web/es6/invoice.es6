@@ -144,4 +144,16 @@ class Invoice {
 		});
 		return total;
 	}
+
+	get unsavedLines() {
+		var anyUnsaved = false;
+
+		this.lines.forEach(function(line) {
+			if (!anyUnsaved && line.unsaved) {
+				anyUnsaved = true;
+			}
+		});
+
+		return anyUnsaved;
+	}
 }

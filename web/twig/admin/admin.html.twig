@@ -34,7 +34,7 @@
 					<div class="invoice-list__item__date">
 						{{ invoice.modified | date }}
 					</div>
-					<div class="invoice-list__item__unsaved" v-if="invoice.unsaved">*</div>
+					<div class="invoice-list__item__unsaved" v-if="invoice.unsaved || invoice.unsavedLines">*</div>
 				</button>
 			</li>
 		</ul>

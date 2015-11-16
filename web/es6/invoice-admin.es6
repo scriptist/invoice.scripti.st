@@ -45,8 +45,9 @@ class InvoiceAdmin {
 		var anyUnsaved = false;
 
 		this.data.invoices.forEach(function(invoice) {
-			if (!anyUnsaved && invoice.unsaved)
+			if (!anyUnsaved && (invoice.unsaved || invoice.unsavedLines)) {
 				anyUnsaved = true;
+			}
 		});
 
 		if (anyUnsaved)
