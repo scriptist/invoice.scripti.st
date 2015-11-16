@@ -54,7 +54,7 @@
 
 			<div class="invoice-edit__field">
 				<label for="address">Address</label>
-				<textarea name="address" id="address" rows="1" v-model="selected.address" v-autosize></textarea>
+				<textarea name="address" id="address" rows="1" v-model="selected.address" v-autosize="selected.address"></textarea>
 			</div>
 
 			<div class="invoice-edit__field">
@@ -102,7 +102,7 @@
 
 			<button class="button" :disabled="!selected.unsaved">Save</button>
 			<button type="button" class="button" @click="deleteInvoice(selected)" :disabled="!selected.id">Delete</button>
-			<a href="/invoice/{{selected.id}}" target="_blank" style="margin-left:0.5em;">View</a>
+			<a href="/invoice/{{selected.id}}" target="_blank" style="margin-left:0.5em;" v-if="selected.id">View</a>
 		</form>
 	</div>
 	{% endverbatim %}

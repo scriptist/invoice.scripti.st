@@ -23,6 +23,11 @@ class InvoiceAdmin {
 			bind: function () {
 				autosize(this.el);
 			},
+			update: function() {
+				Vue.nextTick(function() {
+					autosize.update(this.el);
+				}.bind(this));
+			},
 			unbind: function () {
 				autosize.destroy(this.el);
 			}
