@@ -1,10 +1,6 @@
 <?php
 
 require 'app/vendor/autoload.php';
-require 'config.php';
-
-// Initialise database
-$database = new medoo($dbCredentials);
 
 // Start Slim
 $app = new \Slim\Slim(array(
@@ -44,9 +40,9 @@ $app->hook('slim.before.dispatch', function() use ($app) {
 
 // Password protect
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-	"path" => ["/admin", "/api"],
-	"secure" => false,
-	"users" => $users
+    "path" => ["/admin", "/api"],
+    "secure" => false,
+    "users" => $users
 ]));
 
 // Include routes

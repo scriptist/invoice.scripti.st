@@ -1,5 +1,5 @@
 {% extends "_layout.html.twig" %}
-{% block title %}{{billing.name}}{% endblock %}
+{% block title %}{{invoice.company | default(invoice.name)}}{% endblock %}
 {% block content %}
 	{% if invoice %}
 		<div class="invoice">

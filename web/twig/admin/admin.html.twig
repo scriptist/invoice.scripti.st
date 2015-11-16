@@ -25,8 +25,11 @@
 			</li>
 			<li v-for="invoice in invoices">
 				<button class="invoice-list__item" :class="{'invoice-list__item--selected': invoice === selected}" @click="select(invoice)">
-					<div class="invoice-list__item__name">
+					<div class="invoice-list__item__name" v-if="invoice.company">
 						{{ invoice.company }}
+					</div>
+					<div class="invoice-list__item__name" v-if="!invoice.company">
+						{{ invoice.name }}
 					</div>
 					<div class="invoice-list__item__type">
 						{{ invoice.type }}
