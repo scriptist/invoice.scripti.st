@@ -2,15 +2,13 @@ class InvoiceLine {
 	constructor(invoiceId, data = {}) {
 		this._data       = {};
 		this.invoiceId   = invoiceId;
-		this.id          = data.id       || null;
-		this.modified    = data.modified || new Date();
+		this.id          = data.id           || null;
+		this.modified    = data.modified     || new Date();
 
 		this.description = data.description  || '';
 		this.charge      = data.charge       || 0;
 		this.quantity    = data.quantity     || 0;
 		this.is_hours    = data.is_hours     || true;
-
-		console.log(data);
 
 		this.unsaved     = false;
 	}
