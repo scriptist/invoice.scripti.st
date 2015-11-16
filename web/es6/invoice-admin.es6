@@ -32,6 +32,7 @@ class InvoiceAdmin {
 			el: '#invoice-admin',
 			data: this.data,
 			methods: {
+				deleteInvoice: this.deleteInvoice.bind(this),
 				newInvoice: this.newInvoice.bind(this),
 				select: this.select.bind(this)
 			}
@@ -50,6 +51,17 @@ class InvoiceAdmin {
 
 		if (anyUnsaved)
 			e.returnValue = 'You have unsaved invoices.';
+	}
+
+	deleteInvoice(invoice) {
+		if (confirm('Are you sure you would like to delete this invoice?')) {
+			invoice.delete();
+			var idx = this.data.invoices.indexOf(invoice);
+			if (idx !== -1) {
+				this.data.invoices.splice(idx, 1);
+				this.data.selected = null;
+			}
+		}
 	}
 
 	newInvoice() {

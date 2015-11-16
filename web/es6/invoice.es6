@@ -64,6 +64,31 @@ class Invoice {
 		}
 	}
 
+	delete() {
+		nanoajax.ajax({
+			url: '/api/invoices/' + this.id,
+			method: 'DELETE',
+			body: this.toJSON()
+		}, function (code, responseText, request) {
+			var response = JSON.parse(responseText);
+		    if (response.error) {
+		    	alert(response.message);
+		    } else {
+				this.deleted = true;
+		    }
+		}.bind(this));
+	}
+
+	deleteLine(line) {
+		if (confirm('Are you sure you would like to delete this line?')) {
+			line.delete();
+			var idx = this.lines.indexOf(line);
+			if (idx !== -1) {
+				this.lines.splice(idx, 1);
+			}
+		}
+	}
+
 	// Getters and setters
 	set company(v) {
 		if (v === this._data.company)

@@ -63,7 +63,7 @@
 				</select>
 			</div>
 
-			<div class="invoice-edit__table">
+			<div class="invoice-edit__table" v-if="selected.id">
 				<table>
 					<thead>
 						<tr>
@@ -72,6 +72,7 @@
 							<th>Quantity</th>
 							<th>Hours</th>
 							<th>Total</th>
+							<th></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -83,15 +84,15 @@
 							<td><input type="checkbox" v-model="line.is_hours"></td>
 							<td>{{line.total | currency}}</td>
 							<td><button class="button button--compact button--expand" @click="line.save.call(line)" :disabled="!line.unsaved">Save</button></td>
+							<td><button class="button button--compact button--expand" @click="selected.deleteLine.call(selected, line)" :disabled="!line.id">Delete</button></td>
 						</tr>
 					</tbody>
 				</table>
 				<button class="invoice-edit__table__add button button--compact" @click="selected.newLine.call(selected)">+</button>
 			</div>
 
-
-
 			<button class="button" :disabled="!selected.unsaved">Save</button>
+			<button type="button" class="button" @click="deleteInvoice(selected)" :disabled="!selected.id">Delete</button>
 		</form>
 	</div>
 	{% endverbatim %}

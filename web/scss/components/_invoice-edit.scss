@@ -33,25 +33,35 @@
 	.invoice-edit__table {
 		@include clearfix;
 
+		margin-bottom: 1em;
+
 		.invoice-edit__table__add {
 			float: right;
 		}
 
 		table {
 			border-spacing: 0;
-			margin-bottom: 1em;
 			width: 100%;
+		}
+
+		th, td {
+			&:nth-child(2),
+			&:nth-child(3) {
+				width: 80px;
+			}
+
+			&:first-child {
+				padding-left: 0;
+			}
+			&:last-child {
+				padding-right: 0;
+			}
 		}
 
 		th {
 			font-size: 0.875em;
 			font-weight: inherit;
 			text-align: left;
-		}
-
-		td:nth-child(2),
-		td:nth-child(3) {
-			width: 80px;
 		}
 
 		input[type=text],

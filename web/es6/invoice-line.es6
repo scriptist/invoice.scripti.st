@@ -48,10 +48,25 @@ class InvoiceLine {
 			    	alert(response.message);
 			    } else {
 					this.unsaved = false;
-					this.id = response.invoice.id;
+					this.id = response.line.id;
 			    }
 			}.bind(this));
 		}
+	}
+
+	delete() {
+		nanoajax.ajax({
+			url: '/api/invoices/' + this.invoiceId + '/lines/' + this.id,
+			method: 'DELETE',
+			body: this.toJSON()
+		}, function (code, responseText, request) {
+			var response = JSON.parse(responseText);
+		    if (response.error) {
+		    	alert(response.message);
+		    } else {
+				this.deleted = true;
+		    }
+		}.bind(this));
 	}
 
 	// Getters and setters
