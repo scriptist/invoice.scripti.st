@@ -1,5 +1,5 @@
 {% extends "_layout.html.twig" %}
-{% block title %}{{invoice.company | default(invoice.name)}}{% endblock %}
+{% block title %}{{invoice.company | default(invoice.name)}} {{invoice.type | title}}{% endblock %}
 {% block content %}
 	{% if invoice %}
 		<div class="invoice">
@@ -22,7 +22,7 @@
 					{% endif %}
 				</div>
 				<div class="invoice__right">
-					<div class="invoice__type">{{invoice.type}}</div>
+					<div class="invoice__type">{{invoice.type | title}}</div>
 					<div class="invoice__date">{{invoice.modified | date('Y-m-d')}}</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 						<tr>
 							<td>{{line.description}}</td>
 							<td class="invoice__lines__number">${{line.charge | number_format(2)}}</td>
-							<td class="invoice__lines__number">{{line.quantity}}{% if line.is_hours %} hours{% endif %}</td>
+							<td class="invoice__lines__number">{{line.quantity}}{% if line.is_hours %}&nbsp;hours{% endif %}</td>
 							<td class="invoice__lines__number">${{total | number_format(2)}}</td>
 						</tr>
 					{% endfor %}
