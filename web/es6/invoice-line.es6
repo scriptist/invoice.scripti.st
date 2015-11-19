@@ -83,7 +83,7 @@ class InvoiceLine {
 
 	set charge(v) {
 		var matches;
-		if (matches = /^[^0-9]([0-9]*(\.[0-9]*)?)$/.exec(v)) {
+		if (matches = /^[^0-9](-?[0-9]*(\.[0-9]*)?)$/.exec(v)) {
 			v = parseFloat(matches[1]);
 		}
 
