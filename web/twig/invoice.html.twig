@@ -42,15 +42,15 @@
 						{% set grandTotal = grandTotal + total %}
 						<tr>
 							<td>{{line.description}}</td>
-							<td class="invoice__lines__number">${{line.charge | number_format(2)}}</td>
+							<td class="invoice__lines__number">{{invoice.currency}}{{line.charge | number_format(2)}}</td>
 							<td class="invoice__lines__number">{{line.quantity}}{% if line.is_hours %}&nbsp;hours{% endif %}</td>
-							<td class="invoice__lines__number">${{total | number_format(2)}}</td>
+							<td class="invoice__lines__number">{{invoice.currency}}{{total | number_format(2)}}</td>
 						</tr>
 					{% endfor %}
 
 					<tr class="invoice__lines__grand-total">
 						<td colspan="3">GRAND TOTAL</td>
-						<td class="invoice__lines__number">${{grandTotal | number_format(2)}}</td>
+						<td class="invoice__lines__number">{{invoice.currency}}{{grandTotal | number_format(2)}}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -8,6 +8,7 @@ class Invoice {
 		this.name     = data.name     || '';
 		this.address  = data.address  || '';
 		this.type     = data.type     || '';
+		this.currency = data.currency || '$';
 
 		this.lines    = [];
 		if (data.lines) {
@@ -135,6 +136,17 @@ class Invoice {
 
 	get type() {
 		return this._data.type;
+	}
+	set currency(v) {
+		if (v === this._data.currency)
+			return;
+
+		this.unsaved = true;
+		this._data.currency = v;
+	}
+
+	get currency() {
+		return this._data.currency;
 	}
 
 	get total() {

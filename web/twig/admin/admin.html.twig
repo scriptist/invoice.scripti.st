@@ -66,6 +66,14 @@
 				</select>
 			</div>
 
+			<div class="invoice-edit__field">
+				<label for="currency">Currency</label>
+				<select name="currency" id="currency" v-model="selected.currency">
+					<option value="$">AUD</option>
+					<option value="€">EUR</option>
+				</select>
+			</div>
+
 			<div class="invoice-edit__table" v-if="selected.id">
 				<table>
 					<thead>
@@ -82,10 +90,10 @@
 					<tbody>
 						<tr v-for="line in selected.lines">
 							<td><input type="text" v-model="line.description"></td>
-							<td><input type="text" v-model="line.charge | currency"></td>
+							<td><input type="text" v-model="line.charge | currency selected.currency"></td>
 							<td><input type="number" v-model="line.quantity"></td>
 							<td><input type="checkbox" v-model="line.is_hours"></td>
-							<td>{{line.total | currency}}</td>
+							<td>{{line.total | currency selected.currency}}</td>
 							<td><button type="button" class="button button--compact button--expand" @click="line.save.call(line)" :disabled="!line.unsaved">Save</button></td>
 							<td><button type="button" class="button button--compact button--expand" @click="selected.deleteLine.call(selected, line)" :disabled="!line.id">Delete</button></td>
 						</tr>
@@ -93,7 +101,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="4" style="text-align: right;padding-right:1em;">Grand total</td>
-							<td>{{selected.total | currency}}</td>
+							<td>{{selected.total | currency selected.currency}}</td>
 							<td colspan="2"><button type="button" class="invoice-edit__table__add button button--compact" @click="selected.newLine.call(selected)">+</button></td>
 						</tr>
 					</tfoot>

@@ -4,7 +4,7 @@ $app->get('/admin', function () use ($app) {
 	global $dbCredentials;
 	$database = new medoo($dbCredentials);
 	$invoices = $database->select("invoice",
-		["id", "modified", "company", "name", "address", "type"],
+		["id", "modified", "currency", "company", "name", "address", "type"],
 		["ORDER" => "modified DESC"]
 	);
 

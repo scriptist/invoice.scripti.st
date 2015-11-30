@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   `type` varchar(10) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `currency` varchar(3) NOT NULL,
+  `currency` varchar(10) NOT NULL,
   `company` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `address` text NOT NULL,

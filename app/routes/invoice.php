@@ -5,7 +5,7 @@ $app->get('/invoice/:id', function ($id) use ($app) {
 	global $dbCredentials;
 	$database = new medoo($dbCredentials);
 	$invoice = $database->get("invoice",
-		["id", "modified", "company", "name", "address", "type"],
+		["id", "modified", "company", "name", "address", "type", "currency"],
 		["id" => $id]
 	);
 

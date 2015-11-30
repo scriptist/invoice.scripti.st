@@ -9,7 +9,7 @@ function APIrequest() {
 // Create Invoice
 $app->post('/api/invoices','APIrequest', function() use($app) {
 	$body = json_decode($app->request->getBody());
-	$fields = ['company', 'name', 'address', 'type'];
+	$fields = ['company', 'name', 'address', 'type', 'currency'];
 	$attempts = 0;
 	$invoice = [];
 
@@ -44,7 +44,7 @@ $app->post('/api/invoices','APIrequest', function() use($app) {
 // Update Invoice
 $app->put('/api/invoices/:id','APIrequest', function($id) use($app) {
 	$body = json_decode($app->request->getBody());
-	$fields = ['company', 'name', 'address', 'type'];
+	$fields = ['company', 'name', 'address', 'type', 'currency'];
 	$attempts = 0;
 	$invoice = [];
 
