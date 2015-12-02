@@ -7,6 +7,9 @@
 				<div class="invoice__left">
 					<div class="invoice__from">
 						<h1>{{billing.name}}</h1>
+						{% if billing.abn %}
+							<p>ABN: {{billing.abn}}</p>
+						{% endif %}
 						<p>{{billing.address | nl2br}}</p>
 					</div>
 
