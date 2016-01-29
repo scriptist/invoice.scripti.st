@@ -7,7 +7,7 @@ class InvoiceLine {
 
 		this.description = data.description  || '';
 		this.charge      = data.charge       || 0;
-		this.quantity    = data.quantity     || 0;
+		this.quantity    = data.quantity     || 1;
 		this.is_hours    = data.is_hours     || true;
 
 		this.unsaved     = false;
@@ -83,7 +83,7 @@ class InvoiceLine {
 
 	set charge(v) {
 		var matches;
-		if (matches = /^[^0-9](-?[0-9]*(\.[0-9]*)?)$/.exec(v)) {
+		if (matches = /(-?[0-9]*(\.[0-9]*)?)$/.exec(v)) {
 			v = parseFloat(matches[1]);
 		}
 
